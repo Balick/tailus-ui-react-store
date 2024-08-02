@@ -29,16 +29,17 @@ type RootProps = React.ComponentProps<typeof Primitive.Root> &
     ref?: React.Ref<React.ElementRef<typeof Primitive.Root>>;
   };
 
-const Root: React.FC<RootProps> = (
-  { direction, withControler, ...props },
-  forwardedRef,
-) => {
+const Root = React.forwardRef<
+  React.ElementRef<typeof Primitive.Root>,
+  RootProps
+>(({ direction, withControler, ...props }, forwardedRef) => {
   return (
     <DirectionContext.Provider value={{ direction, withControler }}>
       <Primitive.Root ref={forwardedRef} direction={direction} {...props} />
     </DirectionContext.Provider>
   );
-};
+});
+Root.displayName = "DrawerRoot";
 
 const Content = React.forwardRef<
   React.ElementRef<typeof Primitive.Content>,
