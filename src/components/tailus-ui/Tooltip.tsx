@@ -36,7 +36,7 @@ TooltipContent.displayName = "TooltipContent";
 const TooltipArrow = React.forwardRef<
   SVGSVGElement,
   React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Arrow> & TooltipProps
->(({ fancy, inverted, className, ...props }) => {
+>(({ fancy, inverted, className, ...props }, ref) => {
   const { arrow } = tooltip();
 
   if (fancy && inverted) {
@@ -46,6 +46,7 @@ const TooltipArrow = React.forwardRef<
   return (
     <TooltipPrimitive.Arrow
       className={arrow({ fancy, inverted, className })}
+      ref={ref}
       {...props}
     />
   );
