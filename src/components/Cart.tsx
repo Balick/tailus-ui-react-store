@@ -1,31 +1,43 @@
-import Drawer from '@tailus-ui/Drawer';
-import Button from '@tailus-ui/Button';
-import { CircleHelp, ShoppingBag, Trash, X } from 'lucide-react';
-import { Caption, Link, Text, Title } from '@tailus-ui/typography';
-import Popover from '@tailus-ui/Popover';
-import type { Product } from './ProductCard';
-import React, { useState } from 'react';
-import { AspectRatio } from '@radix-ui/react-aspect-ratio';
-import { Input } from '@tailus-ui/Input';
-import Select from '@tailus-ui/Select';
-import { products } from './products';
-import ScrollArea from '@tailus-ui/ScrollArea';
-import { toast } from 'sonner';
+import Drawer from "@tailus-ui/Drawer";
+import Button from "@tailus-ui/Button";
+import { CircleHelp, ShoppingBag, Trash, X } from "lucide-react";
+import { Caption, Link, Text, Title } from "@tailus-ui/typography";
+import Popover from "@tailus-ui/Popover";
+import React, { Fragment, useState } from "react";
+import { AspectRatio } from "@radix-ui/react-aspect-ratio";
+import { Input } from "@tailus-ui/Input";
+import Select from "@tailus-ui/Select";
+import ScrollArea from "@tailus-ui/ScrollArea";
+import { toast } from "sonner";
+import type { Product } from "@/types";
+import { products } from "@/constants";
 
-const sizes = ['S', 'M', 'L', 'XL', 'S Tall'];
+const sizes = ["S", "M", "L", "XL", "S Tall"];
 
 interface ItemType extends Product {
   onDelete: () => void;
 }
 
-const Item: React.FC<ItemType> = ({ name, shortDescription, price, priceUnit = '$', link, image, onDelete }) => (
+const Item: React.FC<ItemType> = ({
+  name,
+  shortDescription,
+  price,
+  priceUnit = "$",
+  link,
+  image,
+  onDelete,
+}) => (
   <div className="grid gap-3 border-b py-4 [grid-template-columns:auto_1fr] first:pt-0 last:border-b-0 last:pb-0">
     <a href={link} aria-label={`Go to ${name}`} className="block w-24">
       <AspectRatio
-        ratio={1 / 1}
+        ratio={1}
         className="relative overflow-hidden rounded-[--card-radius] before:absolute before:inset-0 before:z-[1] before:bg-gray-100 before:mix-blend-darken"
       >
-        <img className="size-full object-cover duration-300 group-hover:scale-105" src={image} alt={shortDescription} />
+        <img
+          className="size-full object-cover duration-300 group-hover:scale-105"
+          src={image}
+          alt={shortDescription}
+        />
       </AspectRatio>
     </a>
     <div className="py-0.5">
@@ -68,7 +80,14 @@ const Item: React.FC<ItemType> = ({ name, shortDescription, price, priceUnit = '
               </Select.Content>
             </Select.Portal>
           </Select.Root>
-          <Input defaultValue={1} type="number" name="quantity" variant="outlined" size="sm" className="h-7 w-16 hover:bg-[--ui-soft-bg]" />
+          <Input
+            defaultValue={1}
+            type="number"
+            name="quantity"
+            variant="outlined"
+            size="sm"
+            className="h-7 w-16 hover:bg-[--ui-soft-bg]"
+          />
         </div>
       </div>
     </div>
@@ -79,8 +98,10 @@ export const Cart = () => {
   const [cartProducts, setCartProducts] = useState(products);
 
   const handleDelete = (product: Product) => {
-    setCartProducts((prevProducts) => prevProducts.filter((p) => p !== product));
-    toast.message('Product Deleted!', {
+    setCartProducts((prevProducts) =>
+      prevProducts.filter((p) => p !== product),
+    );
+    toast.message("Product Deleted!", {
       description: `You deleted "${product.name}" from your cart.`,
     });
   };
@@ -88,7 +109,12 @@ export const Cart = () => {
   return (
     <Drawer.Root direction="right">
       <div className="relative">
-        {cartProducts.length > 0 && <span className="absolute right-1 top-1 block size-1 rounded-full bg-danger-600" aria-hidden />}
+        {cartProducts.length > 0 && (
+          <span
+            className="absolute right-1 top-1 block size-1 rounded-full bg-danger-600"
+            aria-hidden
+          />
+        )}
         <Drawer.Trigger asChild>
           <Button.Root size="sm" intent="gray" variant="ghost">
             <Button.Label className="sr-only">Cart</Button.Label>
@@ -120,13 +146,26 @@ export const Cart = () => {
               <div className="mx-auto flex size-16 items-center justify-center rounded-full border border-dashed">
                 <ShoppingBag className="mx-auto size-5 text-[--body-text-color]" />
               </div>
-              <Title className="mt-4" as="div" weight="medium" size="lg" align="center">
+              <Title
+                className="mt-4"
+                as="div"
+                weight="medium"
+                size="lg"
+                align="center"
+              >
                 Your Bag is Empty
               </Title>
               <Text className="mx-auto mt-2 max-w-xs" align="center">
-                Lerspiciatis dolorum, optio, at officia facere perferendis ut recusandae qui?
+                Lerspiciatis dolorum, optio, at officia facere perferendis ut
+                recusandae qui?
               </Text>
-              <Button.Root href="/examples/ecommerce" variant="soft" size="sm" intent="gray" className="mx-auto w-fit">
+              <Button.Root
+                href="/examples/ecommerce"
+                variant="soft"
+                size="sm"
+                intent="gray"
+                className="mx-auto w-fit"
+              >
                 <Button.Label>Discover</Button.Label>
               </Button.Root>
             </div>
@@ -135,7 +174,9 @@ export const Cart = () => {
             <ScrollArea.Viewport className="relative w-full py-6">
               <div className="pr-4">
                 {cartProducts.map((product, index) => (
-                  <Item {...product} onDelete={() => handleDelete(product)} key={index} />
+                  <Fragment key={index}>
+                    <Item {...product} onDelete={() => handleDelete(product)} />
+                  </Fragment>
                 ))}
               </div>
             </ScrollArea.Viewport>
@@ -161,7 +202,13 @@ export const Cart = () => {
                     </Text>
                     <Popover.Root>
                       <Popover.Trigger asChild>
-                        <Button.Root data-rounded="full" size="xs" intent="gray" variant="ghost" aria-label="Tax Info">
+                        <Button.Root
+                          data-rounded="full"
+                          size="xs"
+                          intent="gray"
+                          variant="ghost"
+                          aria-label="Tax Info"
+                        >
                           <Button.Icon type="only">
                             <CircleHelp className="size-3" />
                           </Button.Icon>
@@ -169,9 +216,17 @@ export const Cart = () => {
                       </Popover.Trigger>
                       <Popover.Content className="w-64" mixed>
                         <Text size="sm">
-                          The actual tax will be calculated based on the applicable state and local sales taxes when your order is shipped.
+                          The actual tax will be calculated based on the
+                          applicable state and local sales taxes when your order
+                          is shipped.
                         </Text>
-                        <Link size="sm" href="#" intent="neutral" variant="underlined" className="mt-4 inline-block">
+                        <Link
+                          size="sm"
+                          href="#"
+                          intent="neutral"
+                          variant="underlined"
+                          className="mt-4 inline-block"
+                        >
                           Learn More
                         </Link>
                       </Popover.Content>
@@ -191,7 +246,12 @@ export const Cart = () => {
                 </div>
               </div>
 
-              <Button.Root className="mt-6 w-full" size="lg" intent="neutral" href="/examples/ecommerce/checkout">
+              <Button.Root
+                className="mt-6 w-full"
+                size="lg"
+                intent="neutral"
+                href="/examples/ecommerce/checkout"
+              >
                 <Button.Label>Checkout</Button.Label>
               </Button.Root>
             </div>

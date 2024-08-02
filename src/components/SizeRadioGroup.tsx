@@ -1,7 +1,9 @@
-import RadioGroup from '@tailus-ui/RadioGroup';
-import { Text, Title } from '@tailus-ui/typography';
-import Label from '@tailus-ui/Label';
-import { ReactNode } from 'react';
+"use client";
+
+import RadioGroup from "@tailus-ui/RadioGroup";
+import { Text, Title } from "@tailus-ui/typography";
+import Label from "@tailus-ui/Label";
+import { ReactNode } from "react";
 
 export const SizeRadioGroup = () => (
   <div>
@@ -38,7 +40,13 @@ export const SizeRadioGroup = () => (
   </div>
 );
 
-export const RadioCard = ({ value, children }: { value: string; children: ReactNode }) => (
+export const RadioCard = ({
+  value,
+  children,
+}: {
+  value: string;
+  children: ReactNode;
+}) => (
   <Label
     htmlFor={value}
     size="sm"

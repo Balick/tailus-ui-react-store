@@ -1,28 +1,32 @@
-import { Text, Caption } from '@tailus-ui/typography';
-import { AspectRatio } from '@radix-ui/react-aspect-ratio';
-import type { ReactNode } from 'react';
-import type React from 'react';
+import { Text, Caption } from "@tailus-ui/typography";
+import { AspectRatio } from "@radix-ui/react-aspect-ratio";
+import type React from "react";
+import { Product } from "@/types";
+import Link from "next/link";
+import Image from "next/image";
 
-export interface Product {
-  name: string;
-  category: 't-shirt' | 'longslive t-shirt' | 'sticker' | 'knit-cap' | 'flask';
-  shortDescription: string;
-  price: number;
-  priceUnit?: string;
-  oldPrice?: number;
-  link: string;
-  image: string;
-  children?: ReactNode;
-}
-
-export const ProductCard: React.FC<Product> = ({ name, shortDescription, price, priceUnit = '$', oldPrice, link, image }) => {
+export const ProductCard: React.FC<Product> = ({
+  name,
+  shortDescription,
+  price,
+  priceUnit = "$",
+  oldPrice,
+  id,
+  image,
+}) => {
   return (
-    <a href={link} className="group block space-y-3">
+    <Link href={`/product/${name}`} className="group block space-y-3">
       <AspectRatio
         ratio={9 / 12}
         className="relative overflow-hidden rounded-[--card-radius] before:absolute before:inset-0 before:z-[1] before:bg-gray-100 before:mix-blend-darken"
       >
-        <img className="size-full object-cover duration-300 group-hover:scale-105" src={image} alt={shortDescription} />
+        <Image
+          className="size-full object-cover duration-300 group-hover:scale-105"
+          src={image}
+          width={500}
+          height={500}
+          alt={shortDescription}
+        />
       </AspectRatio>
       <div className="px-0.5">
         <div className="flex justify-between">
@@ -42,11 +46,19 @@ export const ProductCard: React.FC<Product> = ({ name, shortDescription, price, 
         </div>
         <Caption as="p">{shortDescription}</Caption>
       </div>
-    </a>
+    </Link>
   );
 };
 
-export const ProductCard2: React.FC<Product> = ({ name, shortDescription, price, priceUnit = '$', oldPrice, link, children }) => {
+export const ProductCard2: React.FC<Product> = ({
+  name,
+  shortDescription,
+  price,
+  priceUnit = "$",
+  oldPrice,
+  link,
+  children,
+}) => {
   return (
     <a href={link} className="group block space-y-3">
       <AspectRatio
