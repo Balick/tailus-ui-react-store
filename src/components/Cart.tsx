@@ -1,7 +1,7 @@
 import Drawer from "@tailus-ui/Drawer";
 import Button from "@tailus-ui/Button";
 import { CircleHelp, ShoppingBag, Trash, X } from "lucide-react";
-import { Caption, Link, Text, Title } from "@tailus-ui/typography";
+import { Caption, Text, Title } from "@tailus-ui/typography";
 import Popover from "@tailus-ui/Popover";
 import React, { Fragment, useState } from "react";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
@@ -11,6 +11,8 @@ import ScrollArea from "@tailus-ui/ScrollArea";
 import { toast } from "sonner";
 import type { Product } from "@/types";
 import { products } from "@/constants";
+import Image from "next/image";
+import Link from "next/link";
 
 const sizes = ["S", "M", "L", "XL", "S Tall"];
 
@@ -23,23 +25,27 @@ const Item: React.FC<ItemType> = ({
   shortDescription,
   price,
   priceUnit = "$",
-  link,
   image,
   onDelete,
 }) => (
   <div className="grid gap-3 border-b py-4 [grid-template-columns:auto_1fr] first:pt-0 last:border-b-0 last:pb-0">
-    <a href={link} aria-label={`Go to ${name}`} className="block w-24">
+    <Link
+      href={`/product/${name}`}
+      aria-label={`Go to ${name}`}
+      className="block w-24"
+    >
       <AspectRatio
         ratio={1}
         className="relative overflow-hidden rounded-[--card-radius] before:absolute before:inset-0 before:z-[1] before:bg-gray-100 before:mix-blend-darken"
       >
-        <img
+        <Image
           className="size-full object-cover duration-300 group-hover:scale-105"
           src={image}
           alt={shortDescription}
+          fill
         />
       </AspectRatio>
-    </a>
+    </Link>
     <div className="py-0.5">
       <div className="flex justify-between">
         <Title size="base" as="div" weight="medium">
@@ -160,7 +166,7 @@ export const Cart = () => {
                 recusandae qui?
               </Text>
               <Button.Root
-                href="/examples/ecommerce"
+                href="/"
                 variant="soft"
                 size="sm"
                 intent="gray"

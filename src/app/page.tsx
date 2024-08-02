@@ -4,8 +4,8 @@ import { Fragment } from "react";
 
 export default function Home() {
   const renderProducts = () =>
-    products.map((product) => (
-      <Fragment key={product.name}>
+    products.map((product, idx) => (
+      <Fragment key={idx}>
         <ProductCard {...product} />
       </Fragment>
     ));

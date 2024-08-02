@@ -27,6 +27,7 @@ export default function Page({ params }: { params: { name: string } }) {
                   alt={`image of ${product.name}`}
                   width={500}
                   height={500}
+                  priority
                   className="size-full rounded-[--card-radius] border object-cover group-hover:scale-105"
                 />
               </div>
@@ -36,6 +37,7 @@ export default function Page({ params }: { params: { name: string } }) {
                   alt={`image of ${product.name}`}
                   width={500}
                   height={500}
+                  priority
                   className="size-full rounded-[--card-radius] border object-cover group-hover:scale-105"
                 />
               </div>
@@ -45,6 +47,7 @@ export default function Page({ params }: { params: { name: string } }) {
                   alt={`image of ${product.name}`}
                   width={500}
                   height={500}
+                  priority
                   className="size-full rounded-[--card-radius] border object-cover group-hover:scale-105"
                 />
               </div>

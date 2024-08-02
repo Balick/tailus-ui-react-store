@@ -1,9 +1,9 @@
-import { twMerge } from 'tailwind-merge';
+import { twMerge } from "tailwind-merge";
 
 export const BrandLogo = (props: { className?: string }) => {
   return (
     <svg
-      className={twMerge('h-8 text-gray-950 dark:text-white', props.className)}
+      className={twMerge("h-8 text-gray-950 dark:text-white", props.className)}
       viewBox="0 0 298 84"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +53,10 @@ export const BrandLogo = (props: { className?: string }) => {
 export const BrandIcon = (props: { className?: string }) => {
   return (
     <svg
-      className={twMerge('size-7 text-gray-950 dark:text-white', props.className)}
+      className={twMerge(
+        "size-7 text-gray-950 dark:text-white",
+        props.className,
+      )}
       width={56}
       height={56}
       viewBox="0 0 84 84"
