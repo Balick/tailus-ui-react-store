@@ -5,7 +5,7 @@ import { Product } from "@/types";
 import Link from "next/link";
 import Image from "next/image";
 
-export const ProductCard: React.FC<Product> = ({
+export const ProductCard: React.FC<Product> = async ({
   name,
   shortDescription,
   price,
