@@ -1,5 +1,6 @@
 {
   "name": "tailus-ui-react-store",
+  "description": "Ecommerce block examples including built with Tailus UI React",
   "version": "0.1.0",
   "private": true,
   "scripts": {
